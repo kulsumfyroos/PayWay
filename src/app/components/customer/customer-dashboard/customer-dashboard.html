@@ -1,0 +1,132 @@
+<div class="dashboard-layout">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="logo">
+      <span>FinCoreBMS</span>
+    </div>
+    <div class="sidebar-subtitle">Customer Portal</div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Main Menu</div>
+      <a href="customer-dashboard.html" class="active">Dashboard</a>
+      <a href="customer-profile.html">My Profile</a>
+      <a href="customer-transactions.html">Transactions</a>
+      <a href="customer-loans.html">Loans</a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Quick Actions</div>
+      <a href="customer-transfer.html">Transfer Money</a>
+      <a href="customer-deposit.html">Deposit</a>
+      <a href="customer-withdraw.html">Withdraw</a>
+    </div>
+  </div>
+
+  <!-- MAIN AREA -->
+  <div class="main-area">
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <h1 id="welcomeMessage">Welcome, Customer</h1>
+      <button class="logout-btn" id="logoutBtn">Logout</button>
+    </div>
+
+    <!-- STATS CARDS -->
+    <div class="cards-row">
+      <div class="card">
+        <h4>Account Balance</h4>
+        <h2 id="accountBalance">₹0.00</h2>
+        <p>Current available balance</p>
+      </div>
+
+      <div class="card">
+        <h4>Account Number</h4>
+        <h2 id="accountNumber" style="font-size: 24px;">-</h2>
+        <p>Your account identifier</p>
+      </div>
+
+      <div class="card">
+        <h4>Customer Name</h4>
+        <h2 id="customerName" style="font-size: 24px;">-</h2>
+        <p>Registered account holder</p>
+      </div>
+    </div>
+
+    <!-- CONTENT GRID -->
+    <div class="grid-2">
+      <!-- RECENT TRANSACTIONS -->
+      <div class="table-card">
+        <h3>Recent Transactions</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Type</th>
+              <th>Amount</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2024-01-15</td>
+              <td>Deposit</td>
+              <td class="status-credit">+₹5,000</td>
+              <td>Completed</td>
+            </tr>
+            <tr>
+              <td>2024-01-14</td>
+              <td>Withdrawal</td>
+              <td class="status-debit">-₹2,000</td>
+              <td>Completed</td>
+            </tr>
+            <tr>
+              <td>2024-01-13</td>
+              <td>Transfer</td>
+              <td class="status-debit">-₹1,500</td>
+              <td>Completed</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- QUICK ACTIONS -->
+      <div class="action-card">
+        <h3>Quick Actions</h3>
+        <p>Manage your account with these quick links</p>
+        <div class="quick-links">
+          <a href="customer-transfer.html" class="quick-link-btn">Transfer Money</a>
+          <a href="customer-deposit.html" class="quick-link-btn">Deposit Funds</a>
+          <a href="customer-withdraw.html" class="quick-link-btn">Withdraw Cash</a>
+          <a href="customer-loans.html" class="quick-link-btn">Apply for Loan</a>
+          <a href="customer-profile.html" class="quick-link-btn">Update Profile</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACCOUNT INFO -->
+    <div class="table-card">
+      <h3>Account Information</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td style="font-weight: 600;">Email</td>
+            <td id="customerEmail">-</td>
+          </tr>
+          <tr>
+            <td style="font-weight: 600;">IFSC Code</td>
+            <td>PAYW0001234</td>
+          </tr>
+          <tr>
+            <td style="font-weight: 600;">Branch</td>
+            <td>Main Branch</td>
+          </tr>
+          <tr>
+            <td style="font-weight: 600;">Account Type</td>
+            <td>Savings Account</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Note: all scripts moved to customer-dashboard.ts component -->

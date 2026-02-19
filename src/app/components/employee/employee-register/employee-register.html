@@ -1,0 +1,249 @@
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="logo">FinCoreBMS</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="transaction-list.html">Transactions</a>
+    <a href="loan-request.html">Loans</a>
+  </div>
+  <a href="index.html" class="back-btn">← Back</a>
+</div>
+<div class="navbar_not_logged_in">
+  <div class="logo">FinCoreBMS</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="misc-about-us.html">About</a>
+    <a href="misc-contact-us.html">Contact</a>
+    <a href="misc-privacy-policy.html">Privacy</a>
+    <a href="misc-security-policy.html">Security</a>
+  </div>
+  <a href="index.html" class="back-btn">← Back</a>
+</div>
+
+<!-- REGISTRATION CONTAINER -->
+<div class="register-container">
+  <div class="register-header">
+    <h1>Employee Registration</h1>
+    <p>Create your banking operations account</p>
+  </div>
+
+  <form id="registrationForm">
+    <div class="form-row">
+      <!-- Employee ID (Auto-generated, non-editable) -->
+      <div class="form-group">
+        <label for="employeeId">Employee ID (Auto-Generated)</label>
+        <input 
+          type="text" 
+          id="employeeId" 
+          name="employeeId"
+          placeholder="Auto-generated"
+          disabled
+        >
+      </div>
+      <div class="form-group">
+        <label for="employeeRole">Employee Role</label>
+        <select id="employeeRole" name="employeeRole" required>
+          <option value="">Select Role</option>
+          <option value="Teller">Teller</option>
+          <option value="Manager">Manager</option>
+          <option value="Auditor">Auditor</option>
+          <option value="Clerk">Clerk</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- First Name and Last Name -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input 
+          type="text" 
+          id="firstName" 
+          name="firstName"
+          placeholder="Enter first name"
+          maxlength="50"
+          required
+        >
+        <div class="error-message">First name is required (max 50 characters)</div>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input 
+          type="text" 
+          id="lastName" 
+          name="lastName"
+          placeholder="Enter last name"
+          maxlength="50"
+          required
+        >
+        <div class="error-message">Last name is required (max 50 characters)</div>
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input 
+        type="email" 
+        id="email" 
+        name="email"
+        placeholder="Enter your email address"
+        required
+      >
+      <div class="error-message">Please enter a valid email address</div>
+    </div>
+
+    <!-- Password and Confirm Password -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password"
+          placeholder="Min 8 chars: uppercase, lowercase, number, special char"
+          maxlength="30"
+          required
+        >
+        <div class="error-message">Password must be 8-30 chars with uppercase, lowercase, number & special char (@$!%*?&)</div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input 
+          type="password" 
+          id="confirmPassword" 
+          name="confirmPassword"
+          placeholder="Confirm password"
+          maxlength="30"
+          required
+        >
+        <div class="error-message">Passwords do not match</div>
+      </div>
+    </div>
+
+    <!-- Gender and date of birth -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="emp_gender">Gender</label>
+        <select id="emp_gender" name="emp_gender" required>
+          <option value="">Select gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+          <option value="Prefer not to say">Prefer not to say</option>
+        </select>
+        <div class="error-message">Please select a gender</div>
+      </div>
+
+      <div class="form-group">
+        <label for="emp_dob">Date of Birth</label>
+        <input 
+          type="date" 
+          id="emp_dob" 
+          name="emp_dob"
+          placeholder="Select date of birth"
+          required
+        >
+        <div class="error-message">Date of birth is required</div>
+      </div>
+    </div>
+
+    <!-- Address -->
+    <div class="form-group">
+      <label for="address">Address</label>
+      <textarea 
+        id="address" 
+        name="address"
+        placeholder="Enter street, city details"
+        maxlength="100"
+        rows="3"
+        required
+      ></textarea>
+      <div class="error-message">Address is required (max 100 characters)</div>
+    </div>
+
+    <!-- Contact Number -->
+    <div class="form-group">
+      <label for="contactNumber">Contact Number</label>
+      <input 
+        type="text" 
+        id="contactNumber" 
+        name="contactNumber"
+        placeholder="Enter 10-digit contact number"
+        maxlength="10"
+        required
+      >
+      <div class="error-message">Contact number must be 10 digits</div>
+    </div>
+
+    <!-- Aadhar and PAN-->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="emp_aadhaar">Aadhaar Number</label>
+        <input 
+          type="number" 
+          id="emp_aadhaar" 
+          name="emp_aadhaar"
+          placeholder="12 digits"
+          maxlength="12"
+          minlength="12"
+          required
+        >
+        <div class="error-message">12 digit Aadhaar number is required</div>
+      </div>
+
+      <div class="form-group">
+        <label for="emp_pan">PAN Number</label>
+        <input 
+          type="text" 
+          id="emp_pan" 
+          name="emp_pan"
+          placeholder="10 characters"
+          maxlength="10"
+          minlength="10"
+          required
+        >
+        <div class="error-message">10 character PAN number is required, Alphanumeric , no special characters</div>
+      </div>
+    </div>
+
+    <button type="submit" class="register-btn">Register</button>
+  </form>
+
+  <div class="login-link">
+    <p>Already have an account? <a href="index.html">Login here</a></p>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div id="successModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-icon">✓</div>
+      <h2>Registration Successful!</h2>
+    </div>
+    <div class="modal-body">
+      Employee Registration successful.
+    </div>
+    <div class="modal-details">
+      <div class="detail-row">
+        <span class="detail-label">Employee ID</span>
+        <span class="detail-value" id="modalEmployeeId"></span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Customer Name</span>
+        <span class="detail-value" id="modalCustomerName"></span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Email</span>
+        <span class="detail-value" id="modalEmail"></span>
+      </div>
+    </div>
+    <button class="modal-button" id="modalContinueBtn">Continue to Home</button>
+  </div>
+</div>
+
+<!-- Note: all scripts moved to employee-register.ts component -->

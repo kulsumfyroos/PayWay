@@ -1,0 +1,180 @@
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="logo">FinCoreBMS</div>
+  <div class="nav-links">
+    <a routerLink="/">Home</a>
+    <a href="misc-about-us.html">About</a>
+    <a href="misc-contact-us.html">Contact</a>
+    <a href="misc-privacy-policy.html">Privacy</a>
+    <a href="misc-security-policy.html">Security</a>
+  </div>
+  <a routerLink="/" class="back-btn">← Back</a>
+</div>
+
+<!-- LOGIN CONTAINER -->
+<div class="login-container">
+  <div class="login-header">
+    <h1>Employee Login</h1>
+    <p>Access your Employee Dashboard</p>
+  </div>
+
+  <form id="loginForm">
+    <div class="form-group">
+      <label for="employeeId">Employee ID</label>
+      <input 
+        type="text" 
+        id="employeeId" 
+        name="employeeId"
+        placeholder="Enter your 7-digit Employee ID"
+        maxlength="7"
+        required
+      >
+      <div class="error-message">Employee ID must be 7 digits</div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input 
+        type="password" 
+        id="password" 
+        name="password"
+        placeholder="Enter your password"
+        maxlength="30"
+        required
+      >
+      <div class="error-message">Password must be provided</div>
+    </div>
+
+    <button type="submit" class="login-btn">Login</button>
+  </form>
+
+  <div class="register-link">
+    <p>Don't have an account? <a routerLink="/employee-register">Register here</a></p>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div id="successModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-icon">✓</div>
+      <h2>Login Successful!</h2>
+    </div>
+    <div class="modal-body">
+      Employee Login successful.
+    </div>
+    <button class="modal-button" id="modalContinueBtn">Continue to Home</button>
+  </div>
+</div>
+
+<!-- Note: all scripts moved to employee-login.ts component -->
+<!-- document.getElementById('loginForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const employeeId = document.getElementById('employeeId').value.trim();
+  const password = document.getElementById('password').value;
+
+  clearErrors();
+
+  // Validate Employee ID
+  if (employeeId.length < 7 || isNaN(employeeId)) {
+    showError('employeeId', 'Employee ID must be 7 digits');
+    return;
+  }
+
+  // Validate Password
+  if (!password || password.length > 30 || password.length < 8 ) {
+    showError('password', 'Password length 8 to 30 characters are required');
+    return;
+  }
+  // if password doent contain at least one special character, atleast a number , atleast a upper and lowercase ,  show error
+  const specialCharPattern = /[!@#$%^&*(),.?":{}|<>]/;
+  const numberPattern = /[0-9]/;
+  const upperCasePattern = /[A-Z]/;
+  const lowerCasePattern = /[a-z]/;
+
+  if (
+    !specialCharPattern.test(password) ||
+    !numberPattern.test(password) ||
+    !upperCasePattern.test(password) ||
+    !lowerCasePattern.test(password)
+  ) {
+    showError('password', 'Password must contain at least one special character, one number, one uppercase and one lowercase letter');
+    return;
+  }
+
+  if (password.length > 30) {
+    showError('password', 'Password must not exceed 30 characters');
+    return;
+  }
+
+  // If validation passes, show the success modal instead of redirecting immediately.
+  // store the logged in employee id so other pages (dashboard) can show it
+  try { 
+    localStorage.setItem('employeeId', employeeId); 
+    localStorage.setItem('isEmployeeLoggedIn', 'true'); // set login status (camelCase key)
+    console.log('Employee logged in:', employeeId);
+  } catch(e) { // throw error in console
+    console.error('LocalStorage is not available.', e);
+  }
+  // Show modal; the modal's Continue button triggers redirectHome()
+  try {
+    showSuccessModal();
+  } catch (e) {
+    console.error('Failed to show success modal, redirecting directly.', e);
+    window.location.href = 'employee-dashboard.html';
+  }
+});
+
+// Show error message
+function showError(fieldId, message) {
+  const formGroup = document.getElementById(fieldId).closest('.form-group');
+  formGroup.classList.add('error');
+  formGroup.querySelector('.error-message').textContent = message;
+}
+
+// Clear all errors
+function clearErrors() {
+  document.querySelectorAll('.form-group').forEach(group => {
+    group.classList.remove('error');
+  });
+}
+
+// Show success modal
+function showSuccessModal() {
+  document.getElementById('successModal').style.display = 'block';
+}
+
+// Close modal and redirect
+function redirectHome() {
+  document.getElementById('successModal').style.display = 'none';
+  setTimeout(() => {
+    // After successful employee login, go to the employee dashboard
+    window.location.href = 'employee-dashboard.html';
+  }, 100);
+}
+
+// Close modal when clicking outside
+window.addEventListener('click', function(event) {
+  const modal = document.getElementById('successModal');
+  if (event.target === modal) {
+    modal.style.display = 'none';
+  }
+});
+
+// Real-time validation
+document.getElementById('employeeId').addEventListener('input', function(e) {
+  if (e.target.value.trim().length >= 7) {
+    e.target.closest('.form-group').classList.remove('error');
+  }
+});
+
+document.getElementById('password').addEventListener('input', function(e) {
+  if (e.target.value.length > 0) {
+    e.target.closest('.form-group').classList.remove('error');
+  }
+});
+
+// Modal continue button handler
+document.getElementById('modalContinueBtn').addEventListener('click', redirectHome);
+</script> -->

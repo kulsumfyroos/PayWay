@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FinCoreBMS – Employee Dashboard</title>
+
+<!-- Poppins Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+  
+
+<div class="dashboard-layout">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+
+    <div class="logo">
+      <span>FinCoreBMS</span>
+    </div>
+    <div class="sidebar-subtitle">Employee Dashboard</div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Main</div>
+      <a routerLink="/employee-dashboard" class="active">Dashboard</a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Employee Management</div>
+      <a routerLink="/employee-register">Register Employee</a>
+      <a href="employee-update.html">Update Employee</a>
+      <a href="employee-delete.html">Delete Employee</a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Customer Management</div>
+      <a routerLink="/customer-register">Create Customer</a>
+      <a href="customer-list.html">View Customers</a>
+      <a href="customer-update.html">Update Customer</a>
+      <a href="customer-delete.html">Delete Customer</a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Transaction Management</div>
+      <a href="transaction-create.html">Create Transaction</a>
+      <a href="transaction-list.html">View Transactions</a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Accounts Management</div>
+      <a href="account-create.html">Create Account</a>
+      <a href="account-list.html">View Accounts</a>
+      <a href="account-update.html">Update Account</a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Loans</div>
+      <a href="loan-request.html">Request Loan</a>
+      <a href="loan-update.html">Update Loan</a>
+      <a href="loan-list.html">View Loans</a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-area">
+
+    <div class="topbar">
+      <h1>Welcome, <span id="employeeIdDisplay">[Employee Name/ID Placeholder]</span></h1>
+      <button class="logout-btn">Logout</button>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="cards-row">
+      <div class="card">
+        <h4>📊 Active Customers</h4>
+        <h2 id="totalCustomers">0</h2>
+        <p>Registered in System</p>
+      </div>
+      <div class="card">
+        <h4>💳 Total Transactions</h4>
+        <h2 id="totalTransactions">0</h2>
+        <p>This Session</p>
+      </div>
+      <div class="card">
+        <h4>💰 Pending Loans</h4>
+        <h2 id="pendingLoans">0</h2>
+        <p>Awaiting Approval</p>
+      </div>
+    </div>
+
+    <!-- Table + Chart -->
+    <div class="grid-2">
+      <div class="table-card">
+        <h3>Recent Transactions</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Customer Name</th>
+              <th>Type</th>
+              <th>Amount</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="transactionTableBody">
+            <tr>
+              <td colspan="4" style="text-align: center; color: #999;">No transactions yet</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="chart-card">
+        <h3>Transaction Summary</h3>
+        <div class="chart-wrapper">
+          <canvas id="summaryChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions Card -->
+    <div class="action-card">
+      <h3>📋 Quick Actions</h3>
+      <p>Fast access to frequently used operations</p>
+      <div class="quick-links">
+        <a routerLink="/customer-register" class="quick-link-btn">➕ Create New Customer</a>
+        <a href="transaction-create.html" class="quick-link-btn">💳 Record Transaction</a>
+        <a href="loan-request.html" class="quick-link-btn">📄 Submit Loan Request</a>
+        <a href="customer-list.html" class="quick-link-btn">👥 View All Customers</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Note: all scripts moved to employee-dashboard.ts component -->
+<!-- Note: Chart.js should be loaded in index.html via <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+<script>
+function logout(){
+  localStorage.removeItem('employeeId');
+  localStorage.setItem('isEmployeeLoggedIn', 'false');
+  window.location.href="index.html";
+}
+
+// Load data from localStorage
+function loadDashboardData() {
+  const customers = JSON.parse(localStorage.getItem('bankCustomers')) || [];
+  const transactions = JSON.parse(localStorage.getItem('bankTransactions')) || [];
+  const loans = JSON.parse(localStorage.getItem('bankLoans')) || [];
+
+  // Update card counts
+  document.getElementById('totalCustomers').textContent = customers.length;
+  document.getElementById('totalTransactions').textContent = transactions.length;
+  document.getElementById('pendingLoans').textContent = loans.filter(l => l.status === 'Pending').length;
+
+  // Display recent transactions
+  displayRecentTransactions(transactions);
+  
+  // Create chart
+  createSummaryChart(transactions);
+
+  // set employee name/id display (placeholder logic)
+  // localStorage.setItem('employeeId', employeeId); } // This should be set during login
+  const employeeId = localStorage.getItem('employeeId') || '[EmployeeID Placeholder]';
+  document.getElementById('employeeIdDisplay').textContent = employeeId;
+}
+
+// Display recent transactions
+function displayRecentTransactions(transactions) {
+  const tableBody = document.getElementById('transactionTableBody');
+  
+  if (transactions.length === 0) {
+    tableBody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #999;">No transactions yet</td></tr>';
+    return;
+  }
+
+  const recentTxns = transactions.slice(-5).reverse();
+  tableBody.innerHTML = recentTxns.map(txn => `
+    <tr>
+      <td>${txn.customerName}</td>
+      <td><span class="status-${txn.transactionType.toLowerCase()}">${txn.transactionType}</span></td>
+      <td>₹${parseFloat(txn.transactionAmount).toLocaleString('en-IN', {minimumFractionDigits: 2})}</td>
+      <td>${new Date(txn.transactionDate).toLocaleDateString('en-IN')}</td>
+    </tr>
+  `).join('');
+}
+
+// Create summary chart
+function createSummaryChart(transactions) {
+  const credits = transactions.filter(t => t.transactionType === 'Credit').length;
+  const debits = transactions.filter(t => t.transactionType === 'Debit').length;
+
+  const ctx = document.getElementById('summaryChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Credits', 'Debits'],
+      datasets: [{
+        data: [credits, debits],
+        backgroundColor: ['#27ae60', '#e74c3c'],
+        borderColor: ['#229954', '#c0392b'],
+        borderWidth: 2,
+        borderRadius: 8
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            font: { size: 13, weight: '600', family: "'Poppins', sans-serif" },
+            padding: 15,
+            usePointStyle: true,
+            pointStyle: 'circle'
+          }
+        }
+      }
+    }
+  });
+}
+
+// Initialize dashboard
+window.addEventListener('DOMContentLoaded', loadDashboardData);
+</script>
